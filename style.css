@@ -80,11 +80,6 @@ textarea {
   display: none;
 }
 
-/*
-.spanrus, .spansubrus {
-  display: none;
-}
-*/
 .spansubrus,
 .spansubeng {
   position: absolute;
@@ -113,17 +108,6 @@ textarea {
 .button13 {
   width: 95px;
 }
-
-/*.button55 {
-  padding: 0px 0;
-
-}
-
-.button27,
-.button43,
-.button53 {
-  padding: 0px 15px;
-}*/
 
 .button14 {
   width: 90px;

@@ -23,7 +23,6 @@ keyboard create in operating system windows</h1>
 to switch the language: left сtrl + left alt </h2>`;
 let rubilnik = 0;
 let knop = 0;
-// создание клопок
 function createButton(inner, inner2, i) {
   const crbutton = document.createElement('div');
   crbutton.setAttribute('id', `button${i}`);
@@ -32,14 +31,12 @@ function createButton(inner, inner2, i) {
   crbutton.innerHTML = ` <span class='span${i} spanrus'>${inner}</span> <span class='spaneng${i} spaneng'>${inner2}</span>`;
   return crbutton;
 }
-// создание блоков
 function createDiv(i) {
   const crDiv = document.createElement('div');
   crDiv.classList.add(`block${i}`);
   crDiv.classList.add('block');
   return crDiv;
 }
-
 const arrayNameButton1 = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', ' ',
   ' ', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', ' ',
   ' ', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', ' ',
@@ -62,7 +59,7 @@ const arrayNameButtonEng1 = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '
   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 const arrayNameButtonEng = [];
 let j = 0;
-// массивы для rus и eng раскладки
+
 for (let i = 0; i < arrayNameButton1.length; i += 1) {
   if (arrayNameButton1[i] === ' ') {
     arrayNameButton[i] = arrayNameButton2[j];
@@ -75,7 +72,6 @@ for (let i = 0; i < arrayNameButton1.length; i += 1) {
     arrayNameButtonEng[i] = arrayNameButtonEng1[i];
   }
 }
-// нельзя написать в месте вставки курсора на вирт клаве
 j = 0;
 
 let p = 0;
@@ -96,7 +92,6 @@ function createSpanBeforeeng(inner, i) {
   return createspan;
 }
 
-// создаем и вносим кнопки с их полным заполнением
 for (let i = 0; i < arrayNameButton.length; i += 1) {
   if ((i === 0) || (i === 14) || (i === 29) || (i === 42) || (i === 56)) {
     Keybroad.appendChild(createDiv(j));
@@ -104,7 +99,6 @@ for (let i = 0; i < arrayNameButton.length; i += 1) {
     j += 1;
   }
 
-  // rus
   document.querySelector(`.block${j - 1}`).appendChild(createButton(arrayNameButton[i], arrayNameButtonEng[i], i));
 
   if ((i > 0) && ((i < 13) || (i === 27))) {
@@ -114,13 +108,12 @@ for (let i = 0; i < arrayNameButton.length; i += 1) {
   }
 
   if (((i < 13) || (i === 27))) {
-    // eng
     document.querySelector(`.button${i}`).prepend(createSpanBeforeeng(arrayNamesubeng[u], i));
     u += 1;
   }
 }
 
-// let language = localStorage.getItem(`lang`);
+
 function changeLanquage() {
   if (localStorage.getItem('lang') === 'en') rubilnik = 1;
   if (localStorage.getItem('lang') === 'ru') rubilnik = 0;
@@ -134,7 +127,7 @@ function changeLanquage() {
       if (document.querySelector(`.spansubrus${i}`)) {
         document.querySelector(`.spansubrus${i}`).style.display = 'flex';
       }
-    } // rubilnik-= 1
+    }
   } else {
     for (let i = 0; i < arrayNameButton.length; i += 1) {
       document.querySelector(`.span${i}`).style.display = 'none';
@@ -163,12 +156,7 @@ const arrayNameС = ['Backquote', 1, 1, 1, 1, 1, 1, 1,
   'IntlBackslash', 'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Comma', 'Period', 'Slash', 1, 1,
   1, 1, 1, 1, 1, 1, 1, 1, 1];
 
-// вывод символов на клаве в облость ввода
-
-// const pos = 0;
 let focusValue = 0;
-
-// отрабатываем события нажатия на витруальной клавиатуре
 function PushButton(e) {
   Textarea.focus();
   if (e.target.innerHTML === 'Backspace') {
@@ -268,9 +256,6 @@ function SwutButton(event, background, color) {
 Keybroad.addEventListener('mousedown', (event) => SwutButton(event, 'blue', 'white'));
 
 Keybroad.addEventListener('mouseup', (event) => SwutButton(event, '#cdcdcd', 'green'));
-
-// подсвет клавиш при нажатии
-
 const arrayNameB = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5', 'Digit6', 'Digit7',
   'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 'Backspace', 'Tab', 'KeyQ', 'KeyW', 'KeyE', 'KeyR',
   'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP', 'BracketLeft', 'BracketRight', 'Backslash', 'Delete', 'Caps Lock',
@@ -279,12 +264,8 @@ const arrayNameB = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5
   'Ctrl', 'Win', 'Alt', 'Space', 'Alt', 'Ctrl', 'ArrowLeft', 'ArrowDown', 'ArrowRight'];
 
 function HendlerKeyBoardsButtons(event, background, color) {
-  // console.log(event.key);//название
-  // console.log(event.code)
   for (let i = 0; i < arrayNameButton1.length; i += 1) {
-    // console.log(event.key)
-
-    if ((event.key === ' ')) { // пробел
+    if ((event.key === ' ')) {
       document.querySelector(`.button${59}`).style.background = background;
       document.querySelector(`.span${59}`).style.color = color;
     }
@@ -391,10 +372,6 @@ function HendlerKeyBoardsButtons(event, background, color) {
 document.addEventListener('keydown', (event) => HendlerKeyBoardsButtons(event, 'blue', 'white'));
 
 document.addEventListener('keyup', (event) => HendlerKeyBoardsButtons(event, '#cdcdcd', 'green'));
-
-// смена языка на клаве
-// при зажатии клавиш вызываем функцию
-
 function RunOnKeys(func, ...codes) {
   const pressed = new Set();
 
@@ -411,9 +388,6 @@ function RunOnKeys(func, ...codes) {
     pressed.delete(event.code);
   });
 }
-
-// при зажатии клавиш меняем язык на клаве
-
 RunOnKeys(
   () => {
     if (localStorage.getItem('lang') === 'en') {
@@ -432,10 +406,8 @@ const arrayNameD = ['Backquote', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Digit5
   'Digit8', 'Digit9', 'Digit0', 'Minus', 'Equal', 1, 1, 1, 1, 1, 1,
   1, 1, 1, 1, 1, 1, 1, 1, 'Backslash'];
 
-// CapsLock
 RunOnKeys(
   () => {
-    // console.log(rubilnik2 );
     if (rubilnik2 === 0) {
       for (let i = 0; i < arrayNameС.length; i += 1) {
         if (arrayNameС[i] !== 1) {
@@ -460,7 +432,6 @@ RunOnKeys(
   'CapsLock',
 );
 
-// Shift
 document.addEventListener('keydown', (event) => {
   if ((event.shiftKey === true) || ((event.shiftKey === true) && event.repeat)) {
     for (let i = 0; i < arrayNameС.length; i += 1) {
@@ -482,7 +453,6 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-// Shift символы над цифрами
 let amountInner = 0;
 let kolzahodov = 0;
 
@@ -517,7 +487,6 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('keyup', (event) => {
   if ((event.key === 'Shift') || ((event.key === 'Shift') && event.repeat)) {
-    //
     for (let i = 0; i < arrayNameD.length; i += 1) {
       if (arrayNameD[i] !== 1) {
         if ((i < 13) || (i === 27)) {
@@ -536,7 +505,5 @@ document.addEventListener('keyup', (event) => {
       }
       kolzahodov = 0;
     }
-
-    //
   }
 });
