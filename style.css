@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Georgia', 'Arial', Helvetica, sans-serif;
+  overflow: hidden;
+  background-color: burlywood;
+
+}
+
+span {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.5rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.1em;
+  color: green;
+}
+
+
+textarea {
+  width: 1000px;
+  height: 20vh;
+}
+
+
+.keybroad {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: hidden;
+}
+
+.block {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.button {
+
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #cdcdcd;
+  position: relative;
+  transition: 0.3s;
+  user-select: none;
+}
+
+
+.spanrus,
+.spaneng {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  transition: 0.3s;
+}
+
+.spaneng,
+.spansubeng {
+  display: none;
+}
+
+.spansubrus,
+.spansubeng {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 1.3rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.1em;
+  color: green;
+
+}
+
+.button59 {
+  width: 400px;
+}
+
+.button42,
+.button29 {
+  width: 140px;
+}
+
+.button56,
+.button61,
+.button13 {
+  width: 95px;
+}
+
+.button14 {
+  width: 90px;
+}
+
+.button41 {
+  width: 80px;
+}
+
+.kostya {
+  z-index: 2;
+  background: red;
+}
+
+h1,
+h2 {
+  text-align: center;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 2.5rem;
+  line-height: 2.7rem;
+  letter-spacing: 0.1em;
+  color: black;
+}
+
+.discriptions {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
