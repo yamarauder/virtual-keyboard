@@ -1,6 +1,8 @@
 import Render from './components/render/render';
+import EventListner from './components/utils/eventListner';
 import './components/render/render.css';
-/* eslint-disable no-console */
+
 const render = new Render();
-console.log(Render);
+const listner = new EventListner();
 render.renderPage();
+listner.onListner();

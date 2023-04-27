@@ -36,19 +36,14 @@ textarea {
 .keyboard {
   width: 1000px;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 15px;
   overflow: hidden;
 }
 
-.block {
-  display: flex;
-  justify-content: space-between;
-}
-
 .button {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   border: 2px solid black;
   white-space: nowrap;
   display: flex;
@@ -61,10 +56,13 @@ textarea {
   user-select: none;
   border-radius: 30%;
   box-shadow: 3px 3px white;
+  cursor: pointer;
 }
 
-.ruslayout,
-.englayout,
+.rusLayout,
+.engLayout,
+.capsRusLayout,
+.capsEngLayout,
 .shiftRusLayout,
 .shiftEngLayout {
   display: flex;
@@ -78,36 +76,10 @@ textarea {
 
 .englayout,
 .shiftRusLayout,
+.capsEngLayout,
+.capsRusLayout,
 .shiftEngLayout {
   display: none;
-}
-
-.button59 {
-  width: 400px;
-}
-
-.button42,
-.button29 {
-  width: 140px;
-}
-
-.button56,
-.button61,
-.button13 {
-  width: 95px;
-}
-
-.button14 {
-  width: 90px;
-}
-
-.button41 {
-  width: 80px;
-}
-
-.kostya {
-  z-index: 2;
-  background: red;
 }
 
 h1,
@@ -123,4 +95,14 @@ h2 {
   margin-top: 7rem;
   display: flex;
   flex-direction: column;
+}
+
+.button:active {
+  box-shadow: 0.3px 0.3px white;
+  transform: scale(0.98);
+  background-color: aqua;
+}
+
+.button:active span {
+  color: rgb(68, 71, 62);
 }
