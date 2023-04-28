@@ -107,4 +107,7 @@ h2 {
 .button:active span {
   color: rgb(68, 71, 62);
 }
-
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}

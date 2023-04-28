@@ -1,5 +1,5 @@
 import {
-  body, lang, rusLang, storageLang, engLang,
+  body, lang, rusLang, storageLang, engLang, amountKey,
 } from '../const/const';
 
 export function changeLanquageHelper(inner, displayAmount) {
@@ -31,7 +31,7 @@ export function startRender() {
   wrapper.append(crdiscriptions);
   const discript = document.querySelector('.discriptions');
   discript.innerHTML = `<h1> keyboard create in operating system windows</h1>
-                        <h2>to switch the language: left сtrl + left alt </h2>
+                        <h2>to switch the language: left shift + left alt </h2>
                         `;
 }
 
@@ -104,4 +104,33 @@ export function drawKeyDelete(i) {
   document.querySelector(`.capsRusLayout${i} `).classList.remove('drawKeySpan');
   document.querySelector(`.capsEngLayout${i} `).classList.remove('drawKeySpan');
   document.querySelector(`.ruslayout${i} `).classList.remove('drawKeySpan');
+}
+
+export function pushButton(e, focusValue) {
+  const textarea = document.querySelector('.textarea');
+  // const keyboard = document.querySelector('.keyboard');
+  textarea.focus();
+  if (amountKey.includes(e.target.innerHTML)) {
+    textarea.value += e.target.innerHTML;
+  }
+  if (e.target.innerHTML === '&lt;') textarea.value += '<';
+  if (e.target.innerHTML === '&gt;') textarea.value += '>';
+  if (e.target.innerHTML === 'Backspace') {
+    if (textarea.selectionStart !== 0) {
+      textarea.value = [...textarea.value].slice(0, textarea.selectionStart - 1).join('')
+        + [...textarea.value].slice(textarea.selectionStart).join('');
+    }
+    textarea.setSelectionRange(focusValue - 1, focusValue - 1);
+  }
+  if (e.target.innerHTML === 'DEL') {
+    textarea.value = [...textarea.value].slice(0, textarea.selectionStart).join('') + [...textarea.value].slice(textarea.selectionStart + 1).join('');
+    textarea.setSelectionRange(focusValue, focusValue);
+  }
+  if (e.target.innerHTML === 'ENTER') {
+    textarea.value = `${[...textarea.value].slice(0, textarea.selectionStart).join('')}\n${[...textarea.value].slice(textarea.selectionStart).join('')}`;
+    textarea.setSelectionRange(focusValue + 1, focusValue + 1);
+  }
+  if ((e.target.innerHTML === 'Tab')) {
+    textarea.value += '    ';
+  }
 }
