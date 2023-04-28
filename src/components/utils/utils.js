@@ -2,7 +2,7 @@ import {
   body, lang, rusLang, storageLang, engLang, engLayout, shiftEngLayout, rusLayout, shiftRusLayout,
 } from '../const/const';
 
-export function changeLanquageHelper(inner, displayAmount) {
+export function changeLangHelper(inner, displayAmount) {
   document.querySelectorAll(inner).forEach(((elem) => {
     const el = elem;
     el.style.display = `${displayAmount}`;
@@ -70,17 +70,17 @@ export function changeLangKeyboard(func, ...codes) {
   });
 }
 
-export function changeViewKetboard(capsIndicator, language, layoutKeyboard, startLang) {
+export function changeViewKeyboard(capsIndicator, language, layoutKeyboard, startLang) {
   if (capsIndicator === 0) {
     if (language === startLang) {
-      keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 0);
+      keyDownKeuUpView(changeLangHelper, layoutKeyboard, 0);
     } else {
-      keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 1);
+      keyDownKeuUpView(changeLangHelper, layoutKeyboard, 1);
     }
   } else if (language === startLang) {
-    keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 4);
+    keyDownKeuUpView(changeLangHelper, layoutKeyboard, 4);
   } else {
-    keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 5);
+    keyDownKeuUpView(changeLangHelper, layoutKeyboard, 5);
   }
 }
 

@@ -9,7 +9,7 @@ import {
   rusLang,
 } from '../const/const';
 
-import { changeLanquageHelper, startRender, getLang } from '../utils/utils';
+import { changeLangHelper, startRender, getLang } from '../utils/utils';
 
 export default class Render {
   widthNorm = '50px';
@@ -70,7 +70,7 @@ export default class Render {
 
     button.classList.add(`button${i}`);
     button.classList.add('button');
-    button.innerHTML = ` <span class='ruslayout${i} rusLayout'>${innerRus[i]}</span> 
+    button.innerHTML = ` <span class='ruslayout${i} rusLayout'>${innerRus[i]}</span>
                          <span class='englayout${i} engLayout'>${innerEng[i]}</span>
                          <span class='shiftRusLayout${i} shiftRusLayout'>${innerRusShift[i]}</span>
                          <span class='shiftEngLayout${i} shiftEngLayout'>${innerEngShift[i]}</span>
@@ -83,11 +83,11 @@ export default class Render {
   changeLanquage() {
     const lang = getLang();
     if (lang === rusLang) {
-      changeLanquageHelper(this.layoutKeyboard[1], 'none');
-      changeLanquageHelper(this.layoutKeyboard[0], 'flex');
+      changeLangHelper(this.layoutKeyboard[1], 'none');
+      changeLangHelper(this.layoutKeyboard[0], 'flex');
     } else {
-      changeLanquageHelper(this.layoutKeyboard[1], 'flex');
-      changeLanquageHelper(this.layoutKeyboard[0], 'none');
+      changeLangHelper(this.layoutKeyboard[1], 'flex');
+      changeLangHelper(this.layoutKeyboard[0], 'none');
     }
   }
 }
