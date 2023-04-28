@@ -108,7 +108,6 @@ export function drawKeyDelete(i) {
 
 export function pushButton(e, focusValue) {
   const textarea = document.querySelector('.textarea');
-  // const keyboard = document.querySelector('.keyboard');
   textarea.focus();
   if (amountKey.includes(e.target.innerHTML)) {
     textarea.value += e.target.innerHTML;
