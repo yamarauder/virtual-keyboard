@@ -55,7 +55,6 @@ export function getLang() {
 export function changeLangKeyboard(func, ...codes) {
   const pressed = new Set();
   document.addEventListener('keydown', (event) => {
-    if ((event.code === 'ShiftLeft')) return;
     pressed.add(event.code);
     if (codes.some((code) => (!pressed.has(code)))) return;
     if (getLang() === rusLang) {
@@ -83,4 +82,26 @@ export function changeViewKetboard(capsIndicator, language, layoutKeyboard, star
   } else {
     keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 5);
   }
+}
+
+export function drawKey(i) {
+  if (i === -1) return;
+  document.querySelector(`.button${i}`).classList.add('drawKeyButton');
+  document.querySelector(`.englayout${i} `).classList.add('drawKeySpan');
+  document.querySelector(`.shiftRusLayout${i} `).classList.add('drawKeySpan');
+  document.querySelector(`.shiftEngLayout${i} `).classList.add('drawKeySpan');
+  document.querySelector(`.capsRusLayout${i} `).classList.add('drawKeySpan');
+  document.querySelector(`.capsEngLayout${i} `).classList.add('drawKeySpan');
+  document.querySelector(`.ruslayout${i} `).classList.add('drawKeySpan');
+}
+
+export function drawKeyDelete(i) {
+  if (i === -1) return;
+  document.querySelector(`.button${i}`).classList.remove('drawKeyButton');
+  document.querySelector(`.englayout${i} `).classList.remove('drawKeySpan');
+  document.querySelector(`.shiftRusLayout${i} `).classList.remove('drawKeySpan');
+  document.querySelector(`.shiftEngLayout${i} `).classList.remove('drawKeySpan');
+  document.querySelector(`.capsRusLayout${i} `).classList.remove('drawKeySpan');
+  document.querySelector(`.capsEngLayout${i} `).classList.remove('drawKeySpan');
+  document.querySelector(`.ruslayout${i} `).classList.remove('drawKeySpan');
 }

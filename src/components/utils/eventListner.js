@@ -1,8 +1,14 @@
 import Render from '../render/render';
 import {
-  changeLanquageHelper, keyDownKeuUpView, getLang, changeLangKeyboard, changeViewKetboard,
+  changeLanquageHelper,
+  keyDownKeuUpView,
+  getLang,
+  changeLangKeyboard,
+  changeViewKetboard,
+  drawKey,
+  drawKeyDelete,
 } from './utils';
-import { rusLang } from '../const/const';
+import { rusLang, nameKey } from '../const/const';
 
 export default class EventListner {
   capsIndicator = 0;
@@ -50,6 +56,11 @@ export default class EventListner {
           keyDownKeuUpView(changeLanquageHelper, this.render.layoutKeyboard, 3);
         }
       }
+      if (event.key) {
+        if (nameKey.indexOf(event.code) !== -1) {
+          drawKey(nameKey.indexOf(event.code));
+        }
+      }
     });
     document.addEventListener('keyup', (event) => {
       if ((event.key === 'Shift')) {
@@ -65,6 +76,9 @@ export default class EventListner {
         } else {
           keyDownKeuUpView(changeLanquageHelper, this.render.layoutKeyboard, 5);
         }
+      }
+      if (event.key) {
+        drawKeyDelete(nameKey.indexOf(event.code));
       }
     });
   }
