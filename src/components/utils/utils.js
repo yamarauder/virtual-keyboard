@@ -1,4 +1,6 @@
-import { body } from '../const/const';
+import {
+  body, lang, rusLang, storageLang, engLang,
+} from '../const/const';
 
 export function changeLanquageHelper(inner, displayAmount) {
   document.querySelectorAll(inner).forEach(((elem) => {
@@ -38,5 +40,47 @@ export function keyDownKeuUpView(func, array, index) {
     if (i === index) {
       func(array[i], 'flex');
     } else func(array[i], 'none');
+  }
+}
+
+export function getLang() {
+  const langNow = localStorage.getItem(storageLang);
+  if (lang.includes(langNow)) {
+    return langNow;
+  }
+  localStorage.setItem(storageLang, rusLang);
+  return rusLang;
+}
+
+export function changeLangKeyboard(func, ...codes) {
+  const pressed = new Set();
+  document.addEventListener('keydown', (event) => {
+    if ((event.code === 'ShiftLeft')) return;
+    pressed.add(event.code);
+    if (codes.some((code) => (!pressed.has(code)))) return;
+    if (getLang() === rusLang) {
+      localStorage.setItem(storageLang, engLang);
+      func();
+    } else {
+      localStorage.setItem(storageLang, rusLang);
+      func();
+    }
+  });
+  document.addEventListener('keyup', (event) => {
+    pressed.delete(event.code);
+  });
+}
+
+export function changeViewKetboard(capsIndicator, language, layoutKeyboard, startLang) {
+  if (capsIndicator === 0) {
+    if (language === startLang) {
+      keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 0);
+    } else {
+      keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 1);
+    }
+  } else if (language === startLang) {
+    keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 4);
+  } else {
+    keyDownKeuUpView(changeLanquageHelper, layoutKeyboard, 5);
   }
 }

@@ -66,6 +66,11 @@ const nameKey = [
   'ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltRight', 'ControlRight', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
 ];
 
+const rusLang = 'ru';
+const engLang = 'eng';
+const lang = [rusLang, engLang];
+const storageLang = 'storageLang';
+
 export {
   body,
   rusLayout,
@@ -76,4 +81,8 @@ export {
   nameKey,
   rusLayoutCaps,
   engLayoutCaps,
+  lang,
+  rusLang,
+  engLang,
+  storageLang,
 };

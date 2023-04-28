@@ -6,9 +6,10 @@ import {
   shiftEngLayout,
   rusLayoutCaps,
   engLayoutCaps,
+  rusLang,
 } from '../const/const';
 
-import { changeLanquageHelper, startRender } from '../utils/utils';
+import { changeLanquageHelper, startRender, getLang } from '../utils/utils';
 
 export default class Render {
   widthNorm = '50px';
@@ -26,8 +27,6 @@ export default class Render {
   displayNone = 'none';
 
   layoutKeyboard = ['.rusLayout', '.engLayout', '.shiftRusLayout', '.shiftEngLayout', '.capsRusLayout', '.capsEngLayout'];
-
-  rubilnik = 0;
 
   renderPage() {
     startRender();
@@ -82,10 +81,8 @@ export default class Render {
   }
 
   changeLanquage() {
-    if (localStorage.getItem('lang') === 'en') this.rubilnik = 1;
-    if (localStorage.getItem('lang') === 'ru') this.rubilnik = 0;
-
-    if (this.rubilnik === 0) {
+    const lang = getLang();
+    if (lang === rusLang) {
       changeLanquageHelper(this.layoutKeyboard[1], 'none');
       changeLanquageHelper(this.layoutKeyboard[0], 'flex');
     } else {
