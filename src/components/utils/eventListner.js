@@ -35,7 +35,6 @@ export default class EventListner {
 
   eventListnerCapsLock() {
     document.addEventListener('keydown', (event) => {
-      // event.preventDefault();
       const textarea = document.querySelector('.textarea');
       textarea.focus();
       if ((event.key === 'CapsLock')) {
@@ -67,6 +66,10 @@ export default class EventListner {
         if (nameKey.indexOf(event.code) !== -1) {
           drawKey(nameKey.indexOf(event.code));
         }
+      }
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        textarea.value += '    ';
       }
     });
     document.addEventListener('keyup', (event) => {
