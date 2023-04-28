@@ -1,5 +1,5 @@
 import {
-  body, lang, rusLang, storageLang, engLang, amountKey,
+  body, lang, rusLang, storageLang, engLang, engLayout, shiftEngLayout, rusLayout, shiftRusLayout,
 } from '../const/const';
 
 export function changeLanquageHelper(inner, displayAmount) {
@@ -106,30 +106,15 @@ export function drawKeyDelete(i) {
   document.querySelector(`.ruslayout${i} `).classList.remove('drawKeySpan');
 }
 
-export function pushButton(e, focusValue) {
+export function downKeyClap(event, Layout) {
   const textarea = document.querySelector('.textarea');
-  textarea.focus();
-  if (amountKey.includes(e.target.innerHTML)) {
-    textarea.value += e.target.innerHTML;
-  }
-  if (e.target.innerHTML === '&lt;') textarea.value += '<';
-  if (e.target.innerHTML === '&gt;') textarea.value += '>';
-  if (e.target.innerHTML === 'Backspace') {
-    if (textarea.selectionStart !== 0) {
-      textarea.value = [...textarea.value].slice(0, textarea.selectionStart - 1).join('')
-        + [...textarea.value].slice(textarea.selectionStart).join('');
-    }
-    textarea.setSelectionRange(focusValue - 1, focusValue - 1);
-  }
-  if (e.target.innerHTML === 'DEL') {
-    textarea.value = [...textarea.value].slice(0, textarea.selectionStart).join('') + [...textarea.value].slice(textarea.selectionStart + 1).join('');
-    textarea.setSelectionRange(focusValue, focusValue);
-  }
-  if (e.target.innerHTML === 'ENTER') {
-    textarea.value = `${[...textarea.value].slice(0, textarea.selectionStart).join('')}\n${[...textarea.value].slice(textarea.selectionStart).join('')}`;
-    textarea.setSelectionRange(focusValue + 1, focusValue + 1);
-  }
-  if ((e.target.innerHTML === 'Tab')) {
-    textarea.value += '    ';
+  if (engLayout.indexOf(event.key) !== -1) {
+    textarea.value += Layout[engLayout.indexOf(event.key)];
+  } else if (rusLayout.indexOf(event.key) !== -1) {
+    textarea.value += Layout[rusLayout.indexOf(event.key)];
+  } else if (shiftRusLayout.indexOf(event.key) !== -1) {
+    textarea.value += Layout[shiftRusLayout.indexOf(event.key)];
+  } else {
+    textarea.value += Layout[shiftEngLayout.indexOf(event.key)];
   }
 }
