@@ -91,7 +91,8 @@ export default class EventListner {
         }
       }
       if (event.key === 'Tab') {
-        textarea.value += '    ';
+        textarea.value = `${textarea.value.slice(0, this.focusValueStart)}    ${textarea.value.slice(this.focusValueStart)}`;
+        textarea.setSelectionRange(this.focusValueStart + 4, this.focusValueStart + 4);
       }
       if (amountKey.includes(event.key)) {
         if (getLang() === rusLang) {
@@ -202,7 +203,8 @@ export default class EventListner {
         textarea.setSelectionRange(this.focusValueStart + 1, this.focusValueStart + 1);
       }
       if ((e.target.innerHTML === 'Tab')) {
-        textarea.value += '    ';
+        textarea.value = `${textarea.value.slice(0, this.focusValueStart)}    ${textarea.value.slice(this.focusValueStart)}`;
+        textarea.setSelectionRange(this.focusValueStart + 4, this.focusValueStart + 4);
       }
     });
     document.querySelector('.keyboard').addEventListener('click', (e) => {

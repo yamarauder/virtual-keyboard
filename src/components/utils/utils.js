@@ -1,5 +1,10 @@
 import {
-  body, lang, rusLang, storageLang, engLang, engLayout, shiftEngLayout, rusLayout, shiftRusLayout,
+  body,
+  lang,
+  nameKey,
+  rusLang,
+  storageLang,
+  engLang,
 } from '../const/const';
 
 export function changeLangHelper(inner, displayAmount) {
@@ -48,8 +53,8 @@ export function getLang() {
   if (lang.includes(langNow)) {
     return langNow;
   }
-  localStorage.setItem(storageLang, rusLang);
-  return rusLang;
+  localStorage.setItem(storageLang, engLang);
+  return engLang;
 }
 
 export function changeLangKeyboard(func, ...codes) {
@@ -106,15 +111,15 @@ export function drawKeyDelete(i) {
   document.querySelector(`.ruslayout${i} `).classList.remove('drawKeySpan');
 }
 
-export function downKeyClap(event, Layout) {
+function cursorVvod(layout) {
   const textarea = document.querySelector('.textarea');
-  if (engLayout.indexOf(event.key) !== -1) {
-    textarea.value += Layout[engLayout.indexOf(event.key)];
-  } else if (rusLayout.indexOf(event.key) !== -1) {
-    textarea.value += Layout[rusLayout.indexOf(event.key)];
-  } else if (shiftRusLayout.indexOf(event.key) !== -1) {
-    textarea.value += Layout[shiftRusLayout.indexOf(event.key)];
-  } else {
-    textarea.value += Layout[shiftEngLayout.indexOf(event.key)];
-  }
+  const startPos = textarea.selectionStart;
+  textarea.value = textarea.value.slice(0, startPos)
+  + layout
+  + textarea.value.slice(startPos - 1 + layout.length);
+  textarea.setSelectionRange(startPos + 1, startPos + 1);
+}
+
+export function downKeyClap(event, Layout) {
+  cursorVvod(Layout[nameKey.indexOf(event.code)]);
 }

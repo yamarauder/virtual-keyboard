@@ -50,7 +50,6 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background: #cdcdcd; */
   border-color: whitesmoke;
   position: relative;
   transition: 0.3s;
