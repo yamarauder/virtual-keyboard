@@ -26,7 +26,7 @@ export default class EventListner {
 
   shiftIndicator = 0;
 
-  focusValue;
+  focusValueStart;
 
   render = new Render();
 
@@ -43,7 +43,7 @@ export default class EventListner {
     );
     const textarea = document.querySelector('.textarea');
     textarea.addEventListener('blur', () => {
-      this.focusValue = textarea.selectionStart;
+      this.focusValueStart = textarea.selectionStart;
       textarea.focus();
     });
     this.eventListnerCapsLock();
@@ -54,6 +54,7 @@ export default class EventListner {
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
       const textarea = document.querySelector('.textarea');
+      this.focusValueStart = textarea.selectionStart;
       textarea.focus();
       if ((event.key === 'CapsLock')) {
         if (this.capsIndicator === 0) {
@@ -116,9 +117,9 @@ export default class EventListner {
         }
       }
       if (event.key === 'Enter') {
-        this.focusValue = textarea.selectionStart;
-        textarea.value = `${[...textarea.value].slice(0, textarea.selectionStart).join('')}\n${[...textarea.value].slice(textarea.selectionStart).join('')}`;
-        textarea.setSelectionRange(this.focusValue + 1, this.focusValue + 1);
+        this.focusValueStart = textarea.selectionStart;
+        textarea.value = `${textarea.value.slice(0, textarea.selectionStart)}\n${textarea.value.slice(textarea.selectionStart)}`;
+        textarea.setSelectionRange(this.focusValueStart + 1, this.focusValueStart + 1);
       }
       if (event.key === 'ArrowUp') {
         textarea.value += '▲';
@@ -131,6 +132,20 @@ export default class EventListner {
       }
       if (event.key === 'ArrowRight') {
         textarea.value += '►';
+      }
+      if (event.key === 'Backspace') {
+        if (textarea.selectionStart !== 0) {
+          textarea.value = textarea.value.slice(0, this.focusValueStart - 1)
+            + textarea.value.slice(this.focusValueStart);
+          textarea.setSelectionRange(this.focusValueStart - 1, this.focusValueStart - 1);
+        } else {
+          textarea.setSelectionRange(this.focusValueStart, this.focusValueStart);
+        }
+      }
+      if (event.key === 'Delete') {
+        textarea.value = textarea.value.slice(0, textarea.selectionStart)
+          + textarea.value.slice(textarea.selectionStart + 1);
+        textarea.setSelectionRange(this.focusValueStart, this.focusValueStart);
       }
     });
     document.addEventListener('keyup', (event) => {
@@ -160,7 +175,7 @@ export default class EventListner {
 
   eventKeyboard() {
     const textarea = document.querySelector('.textarea');
-    this.focusValue = textarea.selectionStart;
+    this.focusValueStart = textarea.selectionStart;
     document.querySelector('.keyboard').addEventListener('click', (e) => {
       textarea.focus();
       if (amountKey.includes(e.target.innerHTML)) {
@@ -170,18 +185,21 @@ export default class EventListner {
       if (e.target.innerHTML === '&gt;') textarea.value += '>';
       if (e.target.innerHTML === 'Backspace') {
         if (textarea.selectionStart !== 0) {
-          textarea.value = [...textarea.value].slice(0, textarea.selectionStart - 1).join('')
-            + [...textarea.value].slice(textarea.selectionStart).join('');
+          textarea.value = textarea.value.slice(0, this.focusValueStart - 1)
+            + textarea.value.slice(this.focusValueStart);
+          textarea.setSelectionRange(this.focusValueStart - 1, this.focusValueStart - 1);
+        } else {
+          textarea.setSelectionRange(this.focusValueStart, this.focusValueStart);
         }
-        textarea.setSelectionRange(this.focusValue - 1, this.focusValue - 1);
       }
       if (e.target.innerHTML === 'DEL') {
-        textarea.value = [...textarea.value].slice(0, textarea.selectionStart).join('') + [...textarea.value].slice(textarea.selectionStart + 1).join('');
-        textarea.setSelectionRange(this.focusValue, this.focusValue);
+        textarea.value = textarea.value.slice(0, textarea.selectionStart)
+          + textarea.value.slice(textarea.selectionStart + 1);
+        textarea.setSelectionRange(this.focusValueStart, this.focusValueStart);
       }
       if (e.target.innerHTML === 'ENTER') {
-        textarea.value = `${[...textarea.value].slice(0, textarea.selectionStart).join('')}\n${[...textarea.value].slice(textarea.selectionStart).join('')}`;
-        textarea.setSelectionRange(this.focusValue + 1, this.focusValue + 1);
+        textarea.value = `${textarea.value.slice(0, textarea.selectionStart)}\n${textarea.value.slice(textarea.selectionStart)}`;
+        textarea.setSelectionRange(this.focusValueStart + 1, this.focusValueStart + 1);
       }
       if ((e.target.innerHTML === 'Tab')) {
         textarea.value += '    ';
