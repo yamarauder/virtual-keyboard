@@ -21,7 +21,7 @@ import {
   engLayoutCaps,
 } from '../const/const';
 
-export default class EventListner {
+export default class EventListener {
   capsIndicator = 0;
 
   shiftIndicator = 0;
@@ -30,7 +30,7 @@ export default class EventListner {
 
   render = new Render();
 
-  onListner() {
+  onListener() {
     changeLangKeyboard(
       () => changeViewKeyboard(
         this.capsIndicator,
@@ -46,11 +46,11 @@ export default class EventListner {
       this.focusValueStart = textarea.selectionStart;
       textarea.focus();
     });
-    this.eventListnerCapsLock();
+    this.eventKey();
     this.eventKeyboard();
   }
 
-  eventListnerCapsLock() {
+  eventKey() {
     document.addEventListener('keydown', (event) => {
       event.preventDefault();
       const textarea = document.querySelector('.textarea');
@@ -170,6 +170,26 @@ export default class EventListner {
       }
       if (event.code === 'CapsLock' && this.capsIndicator !== 0) {
         drawKey(nameKey.indexOf(event.code));
+      }
+    });
+    window.addEventListener('blur', () => {
+      nameKey.forEach((button, i) => drawKeyDelete(i));
+      if (this.capsIndicator === 1) {
+        drawKey(nameKey.indexOf('CapsLock'));
+      }
+      if (this.shiftIndicator === 1) {
+        if (this.capsIndicator === 0) {
+          if (getLang() === rusLang) {
+            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 0);
+          } else {
+            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 1);
+          }
+        } else if (getLang() === rusLang) {
+          keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 4);
+        } else {
+          keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 5);
+        }
+        this.shiftIndicator = 0;
       }
     });
   }
