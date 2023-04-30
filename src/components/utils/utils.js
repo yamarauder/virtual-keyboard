@@ -5,6 +5,7 @@ import {
   rusLang,
   storageLang,
   engLang,
+  letters,
 } from '../const/const';
 
 export function changeLangHelper(inner, displayAmount) {
@@ -122,4 +123,39 @@ function cursorVvod(layout) {
 
 export function downKeyClap(event, Layout) {
   cursorVvod(Layout[nameKey.indexOf(event.code)]);
+}
+
+export function pressShiftAltHelper(language, boolean) {
+  if (language === rusLang) {
+    document.querySelectorAll('.shiftRusLayout').forEach(((elem) => {
+      const el = elem;
+      if (letters.includes(el.innerHTML)) {
+        if (boolean) el.innerHTML = el.innerHTML.toLowerCase();
+        if (!boolean) el.innerHTML = el.innerHTML.toUpperCase();
+      }
+    }));
+  } else {
+    document.querySelectorAll('.shiftEngLayout').forEach(((elem) => {
+      const el = elem;
+      if (letters.includes(el.innerHTML)) {
+        if (boolean) el.innerHTML = el.innerHTML.toLowerCase();
+        if (!boolean) el.innerHTML = el.innerHTML.toUpperCase();
+      }
+    }));
+  }
+}
+
+export function pressShiftAlt(func, shiftIndicator, capsIndicator) {
+  const pressed = new Set();
+  document.addEventListener('keydown', (event) => {
+    pressed.add(event.code);
+    if (shiftIndicator() === 0 || capsIndicator() === 0) {
+      func(getLang(), false);
+      return;
+    }
+    func(getLang(), true);
+  });
+  document.addEventListener('keyup', (event) => {
+    pressed.delete(event.code);
+  });
 }
