@@ -21,7 +21,8 @@ import {
   shiftRusLayout,
   rusLayoutCaps,
   engLayoutCaps,
-  // letters,
+  shiftCapsEngLayout,
+  shiftCapsRusLayout,
 } from '../const/const';
 
 export default class EventListener {
@@ -114,7 +115,10 @@ export default class EventListener {
           if (this.shiftIndicator === 0 && this.capsIndicator !== 0) {
             downKeyClap(event, rusLayoutCaps);
           }
-          if (this.shiftIndicator === 1) {
+          if (this.shiftIndicator === 1 && this.capsIndicator === 1) {
+            downKeyClap(event, shiftCapsRusLayout);
+          }
+          if (this.shiftIndicator === 1 && this.capsIndicator === 0) {
             downKeyClap(event, shiftRusLayout);
           }
         } else {
@@ -124,7 +128,10 @@ export default class EventListener {
           if (this.shiftIndicator === 0 && this.capsIndicator !== 0) {
             downKeyClap(event, engLayoutCaps);
           }
-          if (this.shiftIndicator === 1) {
+          if (this.shiftIndicator === 1 && this.capsIndicator === 1) {
+            downKeyClap(event, shiftCapsEngLayout);
+          }
+          if (this.shiftIndicator === 1 && this.capsIndicator === 0) {
             downKeyClap(event, shiftEngLayout);
           }
         }
