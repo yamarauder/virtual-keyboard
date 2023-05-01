@@ -30,6 +30,8 @@ export default class EventListener {
 
   shiftIndicator = 0;
 
+  shiftIndicatorKey = 0;
+
   focusValueStart;
 
   render = new Render();
@@ -71,22 +73,27 @@ export default class EventListener {
       if ((event.key === 'CapsLock')) {
         if (event.repeat) return;
         if (this.capsIndicator === 0) {
-          if (getLang() === rusLang) {
-            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 4);
-          } else {
-            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 5);
+          if (this.shiftIndicatorKey === 0) {
+            if (getLang() === rusLang) {
+              keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 4);
+            } else {
+              keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 5);
+            }
           }
           this.capsIndicator = 1;
         } else {
-          if (getLang() === rusLang) {
-            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 0);
-          } else {
-            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 1);
+          if (this.shiftIndicatorKey === 0) {
+            if (getLang() === rusLang) {
+              keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 0);
+            } else {
+              keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 1);
+            }
           }
           this.capsIndicator = 0;
         }
       }
       if ((event.shiftKey === true) || ((event.shiftKey === true) && event.repeat)) {
+        if (this.shiftIndicatorKey === 1) return;
         if (getLang() === rusLang) {
           keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 2);
         } else {
@@ -169,6 +176,7 @@ export default class EventListener {
     });
     document.addEventListener('keyup', (event) => {
       if ((event.key === 'Shift')) {
+        if (this.shiftIndicatorKey === 1) return;
         if (event.repeat) return;
         if (this.capsIndicator === 0) {
           if (getLang() === rusLang) {
@@ -249,12 +257,14 @@ export default class EventListener {
     document.querySelector('.keyboard').addEventListener('mousedown', (e) => {
       this.pressMouseAmount = e.target.innerHTML;
       if ((e.target.innerHTML === 'Shift')) {
+        this.shiftIndicatorKey = 1;
         if (getLang() === rusLang) {
           keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 2);
         } else {
           keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 3);
         }
       }
+      if ((e.target.innerHTML !== 'Shift')) this.shiftIndicatorKey = 0;
       if (e.target.innerHTML === 'Caps Lock') {
         if (this.capsIndicator === 0) {
           drawKey(nameKey.indexOf('CapsLock'));
@@ -277,6 +287,7 @@ export default class EventListener {
     });
     document.querySelector('.keyboard').addEventListener('mouseup', (e) => {
       if ((e.target.innerHTML === 'Shift')) {
+        this.shiftIndicatorKey = 0;
         if (this.capsIndicator === 0) {
           if (getLang() === rusLang) {
             keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 0);
@@ -287,6 +298,21 @@ export default class EventListener {
           keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 4);
         } else {
           keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 5);
+        }
+
+        if (this.capsIndicator === 1) {
+          if (getLang() === rusLang) {
+            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 4);
+          } else {
+            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 5);
+          }
+        } else {
+          if (getLang() === rusLang) {
+            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 0);
+          } else {
+            keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 1);
+          }
+          this.capsIndicator = 0;
         }
       }
     });
