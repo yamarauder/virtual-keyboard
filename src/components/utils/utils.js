@@ -62,6 +62,7 @@ export function changeLangKeyboard(func, ...codes) {
   const pressed = new Set();
   document.addEventListener('keydown', (event) => {
     pressed.add(event.code);
+    if (event.code === 'AltLeft' && event.repeat) return;
     if (codes.some((code) => (!pressed.has(code)))) return;
     if (getLang() === rusLang) {
       localStorage.setItem(storageLang, engLang);
@@ -79,9 +80,9 @@ export function changeLangKeyboard(func, ...codes) {
 export function changeViewKeyboard(capsIndicator, language, layoutKeyboard, startLang) {
   if (capsIndicator === 0) {
     if (language === startLang) {
-      keyDownKeuUpView(changeLangHelper, layoutKeyboard, 0);
+      keyDownKeuUpView(changeLangHelper, layoutKeyboard, 2);
     } else {
-      keyDownKeuUpView(changeLangHelper, layoutKeyboard, 1);
+      keyDownKeuUpView(changeLangHelper, layoutKeyboard, 3);
     }
   } else if (language === startLang) {
     keyDownKeuUpView(changeLangHelper, layoutKeyboard, 4);

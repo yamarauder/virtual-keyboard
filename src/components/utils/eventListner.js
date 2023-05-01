@@ -87,7 +87,6 @@ export default class EventListener {
         }
       }
       if ((event.shiftKey === true) || ((event.shiftKey === true) && event.repeat)) {
-        if (event.key === 'Alt') return;
         if (getLang() === rusLang) {
           keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 2);
         } else {
@@ -216,7 +215,7 @@ export default class EventListener {
   eventKeyboard() {
     const textarea = document.querySelector('.textarea');
     this.focusValueStart = textarea.selectionStart;
-    document.querySelector('.keyboard').addEventListener('click', (e) => {
+    document.querySelector('.keyboard').addEventListener('mousedown', (e) => {
       textarea.focus();
       if (amountKey.includes(e.target.innerHTML)) {
         textarea.value += e.target.innerHTML;
@@ -246,7 +245,16 @@ export default class EventListener {
         textarea.setSelectionRange(this.focusValueStart + 4, this.focusValueStart + 4);
       }
     });
-    document.querySelector('.keyboard').addEventListener('click', (e) => {
+
+    document.querySelector('.keyboard').addEventListener('mousedown', (e) => {
+      this.pressMouseAmount = e.target.innerHTML;
+      if ((e.target.innerHTML === 'Shift')) {
+        if (getLang() === rusLang) {
+          keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 2);
+        } else {
+          keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 3);
+        }
+      }
       if (e.target.innerHTML === 'Caps Lock') {
         if (this.capsIndicator === 0) {
           drawKey(nameKey.indexOf('CapsLock'));
@@ -264,16 +272,6 @@ export default class EventListener {
             keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 1);
           }
           this.capsIndicator = 0;
-        }
-      }
-    });
-    document.querySelector('.keyboard').addEventListener('mousedown', (e) => {
-      this.pressMouseAmount = e.target.innerHTML;
-      if ((e.target.innerHTML === 'Shift')) {
-        if (getLang() === rusLang) {
-          keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 2);
-        } else {
-          keyDownKeuUpView(changeLangHelper, this.render.layoutKeyboard, 3);
         }
       }
     });

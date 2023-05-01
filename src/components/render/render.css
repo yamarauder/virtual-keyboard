@@ -95,6 +95,7 @@ h2 {
   margin-top: 7rem;
   display: flex;
   flex-direction: column;
+  user-select: none;
 }
 .drawKeyButton,
 .button:active {
